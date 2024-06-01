@@ -1,0 +1,3 @@
+(library
+ (name controllers)
+ (libraries models views dream html_of_jsx))

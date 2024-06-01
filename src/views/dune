@@ -1,0 +1,6 @@
+(include_subdirs unqualified)
+
+(library
+ (name views)
+ (preprocess (pps html_of_jsx.ppx)) 
+ (libraries components models html_of_jsx))
