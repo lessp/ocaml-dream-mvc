@@ -1,0 +1,10 @@
+let make ~(article: Models.Article.t) () =
+  let link = "/articles/" ^ article.id in
+
+  <div>
+    <a href=link>
+      <h2> (Jsx.text article.title) </h2>
+    </a>
+    <p> (Jsx.text article.content) </p>
+    <a href=link> (Jsx.text "Read article") </a>
+  </div>

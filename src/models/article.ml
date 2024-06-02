@@ -8,20 +8,15 @@ type t =
 let articles =
   ref
     [ { id = "1"
-      ; title =
-          {|OCaml vs. The World: How a Quiet Language is Silently Conquering the Programming Sphere|}
-      ; content =
-          {| This tongue-in-cheek article theorizes how OCaml is the secret powerhouse behind every major tech innovation, from blockchain to AI, humorously exaggerating its omnipresence in the tech world.
-        |}
+      ; title = {|OCaml vs. The World: How a Quiet Language is Silently Conquering the Programming Sphere|}
+      ; content = 
+        {|This tongue-in-cheek article theorizes how OCaml is the secret powerhouse behind every major tech innovation, from blockchain to AI, humorously exaggerating its omnipresence in the tech world.|}
       ; created_at = Sys.time ()
       }
     ; { id = "2"
       ; title = {|The Ultimate Showdown: OCaml Wizards vs. Python Sorcerers|}
       ; content =
-          {|Dive into a fantastical comparison of OCaml and Python as if they were
-        magical disciplines. Featuring interviews with self-proclaimed coding
-        wizards and sorcerers, this article explores which language holds the
-        arcane keys to coding supremacy.|}
+          {|Dive into a fantastical comparison of OCaml and Python as if they were magical disciplines. Featuring interviews with self-proclaimed coding wizards and sorcerers, this article explores which language holds the arcane keys to coding supremacy.|}
       ; created_at = Sys.time ()
       }
     ; { id = "3"

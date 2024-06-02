@@ -1,0 +1,8 @@
+let make ~(articles: Models.Article.t list) () =
+  <Components.Layout>
+    (
+      articles
+       |> List.map (fun article -> <Components.ArticleSummary article />)
+       |> Jsx.list
+    )
+  </Components.Layout>
