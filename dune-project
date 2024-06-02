@@ -1,9 +1,10 @@
 (lang dune 3.15)
+(using melange 0.1)
 
 (name ocaml_dream_mvc)
 (generate_opam_files true)
 (source
- (github username/reponame))
+ (github lessp/ocaml-dream-mvc))
 (authors "lessp")
 (maintainers "Maintainer Name")
 (license LICENSE)
@@ -12,10 +13,15 @@
 
 (package
  (name ocaml_dream_mvc)
- (synopsis "A short synopsis")
- (description "A longer description")
+ (synopsis "A simple blog using Dream and native React SSR")
  (allow_empty)
- (depends ocaml dune)
+ (depends 
+   dream
+   dune
+   html_of_jsx
+   ocaml 
+   reason
+   server-reason-react)
  (tags
   (topics "to describe" your project)))
 

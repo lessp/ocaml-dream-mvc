@@ -1,0 +1,12 @@
+; These components are automatically copied from the `components` folder to the `client` folder
+
+(library
+  (name views_client)
+  (modes melange)
+  (libraries models components_client reason-react melange.js)
+  (wrapped false)
+  (preprocess (pps melange.ppx reason-react-ppx)))
+
+(copy_files#
+ (mode fallback) ; `mode fallback` means you can override files in the client folder
+ (files "../../views/**.{re,rei}"))

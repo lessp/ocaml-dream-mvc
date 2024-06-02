@@ -1,0 +1,10 @@
+(melange.emit
+ (alias client_web)
+ (target app)
+ (enabled_if
+  (= %{profile} "dev"))
+ (modules index)
+ (libraries views_client components_client melange reason-react)
+ (preprocess
+  (pps reason-react-ppx melange.ppx))
+ (module_systems commonjs))

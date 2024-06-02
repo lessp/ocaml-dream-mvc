@@ -1,0 +1,10 @@
+let make = (~csrf as _, ()) => {
+  <Components.Layout>
+    <form action="/articles/" method_="post">
+      <h1> "Create Article" </h1>
+      <div> <label> "Title" <input type_="text" name="title" /> </label> </div>
+      <div> <label> "Content" <textarea name="content" /> </label> </div>
+      <button type_="submit"> "Create" </button>
+    </form>
+  </Components.Layout>;
+};

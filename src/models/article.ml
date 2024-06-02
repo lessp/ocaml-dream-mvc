@@ -43,7 +43,7 @@ let all () = !articles
 
 let find_by_id id = List.find_opt (fun a -> a.id = id) !articles
 
-let create title content =
+let create ~title ~content =
   let next_id = List.length !articles + 1 in
   let article =
     { id = Int.to_string next_id; title; content; created_at = Sys.time () }

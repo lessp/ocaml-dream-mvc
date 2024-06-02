@@ -1,4 +1,4 @@
 (library
  (name components)
- (preprocess (pps html_of_jsx.ppx)) 
- (libraries models html_of_jsx))
+ (preprocess (pps server-reason-react.ppx)) 
+ (libraries models server-reason-react.react server-reason-react.reactDom))

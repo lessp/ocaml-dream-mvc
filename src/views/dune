@@ -2,5 +2,5 @@
 
 (library
  (name views)
- (preprocess (pps html_of_jsx.ppx)) 
- (libraries components models html_of_jsx))
+ (preprocess (pps server-reason-react.ppx)) 
+ (libraries components models server-reason-react.react server-reason-react.reactDom))

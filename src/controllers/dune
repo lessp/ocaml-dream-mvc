@@ -1,3 +1,3 @@
 (library
  (name controllers)
- (libraries models views dream html_of_jsx))
+ (libraries models views dream server-reason-react.react server-reason-react.reactDom))
