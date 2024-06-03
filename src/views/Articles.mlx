@@ -1,8 +1,13 @@
 let make ~(articles: Models.Article.t list) () =
   <Components.Layout>
-    (
-      articles
-       |> List.map (fun article -> <Components.ArticleSummary article />)
-       |> Jsx.list
-    )
+    <div class_="flex flex-col gap-10">
+      <h1 class_="text-3xl font-bold"> "Articles" </h1>
+      <div class_="flex flex-col gap-8">
+        (
+          articles
+           |> List.map (fun article -> <Components.ArticleSummary article />)
+           |> JSX.list
+        )
+      </div>
+    </div>
   </Components.Layout>

@@ -1,4 +1,4 @@
 let make () = 
   <Components.Layout>
-    <h1> (Jsx.text "Welcome to Acme!") </h1>
+    <p class_="text-gray-600"> "Welcome to Acme!" </p>
   </Components.Layout>

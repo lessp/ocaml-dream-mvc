@@ -1,3 +1,3 @@
-let index _request = Dream.html @@ Html_of_jsx.render (Views.Index.make ())
+let index (_ : Dream.request) = Dream.html @@ JSX.to_string (Views.Index.make ())
 
 let routes = [ Dream.get "/" index ]
