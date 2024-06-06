@@ -23,14 +23,4 @@
  (tags
   (topics "to describe" your project)))
 
-(dialect
- (name mlx)
- (implementation
-  (extension mlx)
-  ; (merlin_reader mlx)
-  (format
-   (run ocamlformat-mlx %{input-file}))
-  (preprocess
-   (run mlx-pp %{input-file}))))
-
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project

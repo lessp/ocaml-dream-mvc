@@ -1,16 +1,16 @@
 let index (_ : Dream.request) =
   let articles = Models.Article.all () in
 
-  Dream.html @@ JSX.to_string (Views.Articles.make ~articles ())
+  Dream.html @@ JSX.to_string Views.(render (Articles articles))
 ;;
 
 let show (request : Dream.request) =
   let id = Dream.param request "id" in
-  let article = Models.Article.find_by_id id in
+  let article = Models.Article.find_by_id (int_of_string id) in
 
   let html =
     match article with
-    | Some article -> JSX.to_string (Views.Article.make ~article ())
+    | Some article -> JSX.to_string Views.(render (Article article))
     | None -> "Not found"
   in
 

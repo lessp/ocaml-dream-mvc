@@ -1,2 +1,3 @@
 (library
- (name models))
+ (name models)
+ (libraries types))
