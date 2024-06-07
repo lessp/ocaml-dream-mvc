@@ -24,7 +24,6 @@ let all (module Db : Caqti_lwt.CONNECTION) =
       Types.Article.create ~id ~title ~content ~created_at)
     |> Lwt.return
   | Error e ->
-    print_endline (Caqti_error.show e);
     Dream.log "Error retrieving articles: %s\n" (Caqti_error.show e);
     Lwt.return []
 ;;
