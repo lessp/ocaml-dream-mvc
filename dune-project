@@ -1,19 +1,12 @@
 (lang dune 3.15)
 
 (name ocaml_dream_mvc)
-
 (generate_opam_files true)
-
 (source
  (github lessp/ocaml-dream-mvc))
-
 (authors "lessp")
-
-(maintainers "Maintainer Name")
-
 (license LICENSE)
-
-(documentation https://url/to/documentation)
+(documentation https://github.com/lessp/ocaml-dream-mvc)
 
 (package
  (name ocaml_dream_mvc)
@@ -36,8 +29,6 @@
    (and
     (= 0.26.2)
     :with-dev-setup))
-  (ocaml-lsp-server :with-dev-setup))
- (tags
-  (topics "to describe" your project)))
+  (ocaml-lsp-server :with-dev-setup)))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project
