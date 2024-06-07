@@ -1,5 +1,3 @@
-let getState = () => [];
-
 switch (ReactDOM.querySelector("#root")) {
 | Some(el) =>
   let state =
@@ -9,6 +7,7 @@ switch (ReactDOM.querySelector("#root")) {
       ~content="World",
       ~created_at="2024-06-07 14:03:58.885117+00",
     );
+
   let _root =
     ReactDOM.Client.hydrateRoot(el, <Index article={Some(state)} />);
 
