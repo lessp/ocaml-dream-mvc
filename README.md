@@ -23,15 +23,15 @@ open http://localhost:3000
 
   Dream is a web framework for OCaml that is designed to be easy to use, fast, and secure.
 
-- **SQL**: Caqti
+- **SQL**: [Caqti](https://github.com/paurkedal/ocaml-caqti)
 
-- **Views**: [`Html_of_jsx`](https://github.com/davesnx/html_of_jsx/)
+- **Templating**: [`Html_of_jsx`](https://github.com/davesnx/html_of_jsx/)
 
   `Html_of_jsx` is a library to convert JSX to HTML in OCaml. See [views](./src/views) for examples.
 
 ## File Structure
 
-- [`src/main.ml`](./src/views): The entry point of the application.
+- [`src/Main.ml`](./src/Main.ml): The entry point of the application.
 - [`src/controllers`](./src/controllers): Contains the controllers for the application.
 - [`src/models`](./src/models): Contains the models interacting with the database.
 - [`src/views`](./src/views): Contains the views for the application.
