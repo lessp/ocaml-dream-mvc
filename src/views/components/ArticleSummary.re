@@ -7,6 +7,7 @@ let make = (~article: Types.Article.t, ()) => {
         {JSX.string(article.title)}
       </h2>
     </a>
+    <Date date={article.created_at} />
     <p class_="text-gray-600"> {JSX.string(article.content)} </p>
     <a href=link_url class_="text-gray-900 font-medium hover:underline">
       {JSX.string("Read article")}

@@ -1,7 +1,8 @@
 Dream.run ~interface:"localhost" ~port:3000
 @@ Dream.logger
-@@ Dream.memory_sessions
+@@ Dream.sql_pool Config.database_uri
 @@ Dream.router
-     [ Dream.scope "/" [] Controllers.Home.routes
-     ; Dream.scope "/articles" [] Controllers.Articles.routes
+     [ Dream.get "/" Controllers.Home.index
+     ; Dream.get "/articles/" Controllers.Articles.index
+     ; Dream.get "/articles/:id" Controllers.Articles.show
      ]

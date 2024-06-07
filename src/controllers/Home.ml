@@ -1,3 +1,7 @@
-let index (_ : Dream.request) = Dream.html @@ JSX.to_string Views.(render Index)
+open Lwt.Syntax
 
-let routes = [ Dream.get "/" index ]
+let index (request : Dream.request) =
+  let* article = Dream.sql request Models.Article.get_latest in
+
+  Views.Index.make ~article () |> JSX.render |> Dream.html
+;;

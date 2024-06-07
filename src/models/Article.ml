@@ -1,44 +1,81 @@
-let articles =
-  ref
-    [ { Types.Article.id = 1
-      ; title =
-          {|OCaml vs. The World: How a Quiet Language is Silently Conquering the Programming Sphere|}
-      ; content =
-          {|This tongue-in-cheek article theorizes how OCaml is the secret powerhouse behind every major tech innovation, from blockchain to AI, humorously exaggerating its omnipresence in the tech world.|}
-      ; created_at = Sys.time ()
-      }
-    ; { id = 2
-      ; title = {|The Ultimate Showdown: OCaml Wizards vs. Python Sorcerers|}
-      ; content =
-          {|Dive into a fantastical comparison of OCaml and Python as if they were magical disciplines. Featuring interviews with self-proclaimed coding wizards and sorcerers, this article explores which language holds the arcane keys to coding supremacy.|}
-      ; created_at = Sys.time ()
-      }
-    ; { id = 3
-      ; title = {|Why OCaml is the Best Choice for Surviving the Zombie Apocalypse|}
-      ; content =
-          {|A humorous look at how OCaml's robust type system and efficient execution could be crucial in developing software to survive (and thrive) during a zombie apocalypse. Bonus sections include "Functional Programming for Fortifying Your Base."|}
-      ; created_at = Sys.time ()
-      }
-    ; { id = 4
-      ; title = {|The OCaml Cookbook: Recipes for Mastering the Language|}
-      ; content =
-          {|A collection of recipes for mastering OCaml, from basic syntax to advanced type system tricks. This article is a must-read for anyone looking to level up their OCaml skills.|}
-      ; created_at = Sys.time ()
-      }
-    ]
-;;
+open Caqti_request.Infix
+open Lwt.Syntax
 
-let all () = !articles
+let all (module Db : Caqti_lwt.CONNECTION) =
+  (*
+     The query takes no parameters (unit) and returns a list of tuples with four elements:
+     (int, string, string, string)
+  *)
+  let query = Caqti_type.(unit ->* t4 int string string string) in
 
-let find_by_id id = List.find_opt (fun (a : Types.Article.t) -> a.id = id) !articles
-
-let create title content =
-  let next_id = List.length !articles + 1 in
-  let article =
-    Types.Article.{ id = next_id; title; content; created_at = Sys.time () }
+  let* articles =
+    Db.collect_list
+      (query
+         {sql|SELECT id, title, content, created_at FROM articles ORDER BY created_at DESC|sql})
+      ()
   in
 
-  articles := article :: !articles;
+  match articles with
+  | Ok articles ->
+    articles
+    |> List.map (fun (id, title, content, created_at) ->
+      Types.Article.create ~id ~title ~content ~created_at)
+    |> Lwt.return
+  | Error e ->
+    print_endline (Caqti_error.show e);
+    Dream.log "Error retrieving articles: %s\n" (Caqti_error.show e);
+    Lwt.return []
+;;
 
-  article
+let find_by_id id (module Db : Caqti_lwt.CONNECTION) =
+  let query = Caqti_type.(int ->! t4 int string string string) in
+
+  let* article =
+    Db.find_opt
+      (query "SELECT id, title, content, created_at FROM articles WHERE id = ?")
+      id
+  in
+
+  match article with
+  | Ok (Some (id, title, content, created_at)) ->
+    Some (Types.Article.create ~id ~title ~content ~created_at) |> Lwt.return
+  | Ok None -> Lwt.return None
+  | Error e ->
+    Dream.log "Error retrieving article: %s\n" (Caqti_error.show e);
+    Lwt.return None
+;;
+
+let get_latest (module Db : Caqti_lwt.CONNECTION) =
+  let query = Caqti_type.(unit ->! t4 int string string string) in
+
+  let* article =
+    Db.find_opt
+      (query
+         {sql|SELECT id, title, content, created_at FROM articles ORDER BY created_at DESC LIMIT 1|sql})
+      ()
+  in
+
+  match article with
+  | Ok (Some (id, title, content, created_at)) ->
+    Some (Types.Article.create ~id ~title ~content ~created_at) |> Lwt.return
+  | Ok None -> Lwt.return None
+  | Error e ->
+    Dream.log "Error retrieving latest article: %s\n" (Caqti_error.show e);
+    Lwt.return None
+;;
+
+let create ~title ~content (module Db : Caqti_lwt.CONNECTION) =
+  let query = Caqti_type.(t2 string string ->! int) in
+
+  let* id =
+    Db.find
+      (query {sql|INSERT INTO articles (title, content) VALUES (?, ?) RETURNING id|sql})
+      (title, content)
+  in
+
+  match id with
+  | Ok id -> Lwt.return (Some id)
+  | Error e ->
+    Dream.log "Error creating article: %s\n" (Caqti_error.show e);
+    Lwt.return None
 ;;
