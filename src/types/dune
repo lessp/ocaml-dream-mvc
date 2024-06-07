@@ -1,2 +1,4 @@
 (library
- (name types))
+ (name types)
+ (modes native melange)
+ (wrapped true))

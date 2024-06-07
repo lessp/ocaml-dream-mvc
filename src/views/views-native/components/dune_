@@ -1,0 +1,5 @@
+(library
+ (name components)
+ (preprocess
+  (pps server-reason-react.ppx))
+ (libraries types server-reason-react.ppx server-reason-react.react))

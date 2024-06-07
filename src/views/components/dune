@@ -1,4 +1,0 @@
-(library
- (name components)
- (preprocess (pps html_of_jsx.ppx)) 
- (libraries types html_of_jsx))

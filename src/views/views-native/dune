@@ -1,0 +1,9 @@
+(include_subdirs unqualified)
+
+(library
+ (name views_native)
+ (wrapped true) 
+ (modes native)
+ (preprocess
+  (pps server-reason-react.ppx))
+ (libraries types server-reason-react.react))
