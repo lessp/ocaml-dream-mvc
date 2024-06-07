@@ -1,0 +1,15 @@
+(library
+  (name views_js)
+  (modes melange)
+  (wrapped false) 
+  (preprocess
+   (pps melange.ppx reason-react-ppx))
+  (libraries types reason-react))
+
+(copy_files#
+ (mode fallback) ; `mode fallback` means you can override files in the client folder
+ (files "../views-native/**.{re,rei}"))
+
+(copy_files#
+ (mode fallback) ; `mode fallback` means you can override files in the client folder
+ (files "../views-native/components/**.{re,rei}"))

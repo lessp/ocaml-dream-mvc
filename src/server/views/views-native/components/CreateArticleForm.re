@@ -4,7 +4,8 @@ let make = (~csrf) =>
     <h1 className="text-3xl font-bold">
       {React.string("Create an article")}
     </h1>
-    <form action="/articles/" method_="post">
+    // TODO: method_
+    <form action="/articles/">
       <div className="flex flex-col gap-4">
         <input type_="hidden" name="dream.csrf" value=csrf />
         <div className="flex flex-col gap-4">

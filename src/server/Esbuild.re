@@ -1,0 +1,45 @@
+open Lwt.Syntax;
+
+let build = (~entry_point, ~outfile, ()) => {
+  let build_folder = "_build/default/src/client/app";
+  let output = Filename.concat(build_folder, outfile);
+  let entry = Filename.concat(build_folder, entry_point);
+  let command =
+    String.concat(
+      " ",
+      [
+        "NODE_PATH=./src/node_modules/",
+        "_build/default/src/node_modules/esbuild/bin/esbuild",
+        entry,
+        "--bundle",
+        "--outfile=" ++ output,
+        "--platform=browser",
+        "--log-level=error",
+      ],
+    );
+  let* command = Lwt_unix.system(command);
+  let thread =
+    switch (command) {
+    | Lwt_unix.WEXITED(status) when status == 0 =>
+      Lwt.return_ok(
+        Printf.sprintf("esbuild successfully build into %s", output),
+      )
+    | Lwt_unix.WEXITED(status) =>
+      Lwt.return_ok(
+        Printf.sprintf("Command exited with status %d\n", status),
+      )
+    | Lwt_unix.WSIGNALED(signal) =>
+      Lwt.return_error(
+        Printf.sprintf("Command was killed by signal %d\n", signal),
+      )
+    | Lwt_unix.WSTOPPED(signal) =>
+      Lwt.return_error(
+        Printf.sprintf("Command was stopped by signal %d\n", signal),
+      )
+    };
+
+  switch (Lwt_main.run(thread)) {
+  | Ok(ok) => Lwt.return(print_endline(ok))
+  | Error(result) => Lwt.return(print_endline(result))
+  };
+};
