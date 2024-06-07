@@ -16,6 +16,11 @@ let make = () =>
               {JSX.string("Articles")}
             </a>
           </li>
+          <li>
+            <a href="/articles/create/" class_="font-medium hover:underline">
+              {JSX.string("Create article")}
+            </a>
+          </li>
         </ul>
       </nav>
     </div>

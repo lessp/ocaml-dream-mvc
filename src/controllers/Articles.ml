@@ -14,3 +14,17 @@ let show (request : Dream.request) =
   | Some article -> Views.Article.make ~article () |> JSX.render |> Dream.html
   | None -> Dream.html "Not found"
 ;;
+
+let create (request : Dream.request) =
+  Views.ArticleForm.make ~csrf:(Dream.csrf_token request) () |> JSX.render |> Dream.html
+;;
+
+let store (request : Dream.request) =
+  let* form = Dream.form request in
+  
+  match form with
+  | `Ok [ ("content", content); ("title", title) ] ->
+    let* _id = Dream.sql request (Models.Article.create ~title ~content) in
+    Dream.redirect request "/articles/"
+  | _ -> Dream.redirect request "/articles/create"
+;;

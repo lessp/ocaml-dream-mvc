@@ -3,7 +3,9 @@ open Lwt.Syntax
 
 let all (module Db : Caqti_lwt.CONNECTION) =
   (*
-     The query takes no parameters (unit) and returns a list of tuples with four elements:
+     Explanation of the query type:
+
+     It takes no parameters (unit) and should decode each row as a tuple with four (`t4`) elements:
      (int, string, string, string)
   *)
   let query = Caqti_type.(unit ->* t4 int string string string) in
