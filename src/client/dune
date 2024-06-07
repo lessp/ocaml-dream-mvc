@@ -8,11 +8,3 @@
  (preprocess
   (pps reason-react-ppx melange.ppx))
  (module_systems commonjs))
-
-; (library
-;   (name client)
-;   (modes melange)
-;   (preprocess
-;    (pps melange.ppx reason-react-ppx))
-;   (libraries views_js types reason-react.react reason-react.reactDom))
-
